@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using SimpleChat.Models;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace Simple_Chat.Hubs
 {
@@ -28,13 +31,15 @@ namespace Simple_Chat.Hubs
 			}
 		}
 
+		// Versenden von Client Nachrichten und anschließendes Verteilen and alle Clients
 		public void SendMessage(string message)
 		{
-			// Async entfernt
+			// Nachrichten dem ChatLog hinzufügen
+			SetHistory(message);
+
 			// ruft von allen verbundenen CLients die Methode "ReceiveMessage" auf
 			Clients.All.SendAsync("ReceiveMessage", message);
 		}
-
 
 		public override async Task OnDisconnectedAsync(Exception exception)
 		{
@@ -50,59 +55,35 @@ namespace Simple_Chat.Hubs
 			await base.OnDisconnectedAsync(exception);
 		}
 
-		//public void BroadcastMsg(string msg)
-		//{
-		//	// Aufruf der JavaScript-Funktion receiveMsg auf dem Client
-		//	Clients.All.SendAsync("receiveMsg", msg);
-		//}
+		public async Task RequestHistory()
+		{
+			string[] history = File.ReadAllLines(SetFilePath());
 
-		//public void SendMsg(string user, string msg)
-		//{
-		//	// TODO Ausnahme prüfen falls Schlüssel nicht existiert
-		//	// ID des Benutzers ermitteln
-		//	string id = chatClients[user];
+			await Clients.Caller.SendAsync("GetHistory", history);
+		}
 
-		//	// Nachricht nur an den Client mit dieser Id versenden
-		//	Clients.Client(id).SendAsync("receiveMsg", msg);
-		//}
+		public void SetHistory(string message)
+		{
+			// TODO: Zeit hinzufügen
+			string msg = message;
+			
+			// Öffnen der Datei zum Speichern der Nachrichten
+			using StreamWriter streamw = new StreamWriter(SetFilePath(), true);
 
+			// aktuelle Nachricht anhängen
+			streamw.WriteLine(msg);
+		}
 
-		// Speichert die aktiven Chat Clients
-		// static, da Hub jedes mal instanziiert wird
-		//private static readonly Dictionary<string, string> chatClients = new Dictionary<string, string>();
+		private string SetFilePath()
+		{
+			// Verzeichnis der Anwendung ermitteln
+			string currentDirectory = Directory.GetCurrentDirectory();
 
-		//public void SignOn(string username)
-		//{
+			// vollständigen Pfand zum Speichermedium
+			string filepath = Path.Combine(currentDirectory, "AppData", "chatHistory.txt");
 
-		//    try
-		//    {
-		//        // Benutzer & Id merken
-		//        chatClients.Add(username, Context.ConnectionId);
-
-		//        // Alle Name an alle Clients versenden
-		//        //Clients.All.SendAsync("handleSignOn", chatClients.Keys.ToArray());
-
-		//    }
-		//    catch (Exception e)
-		//    {
-		//        // TODO: Message anpassen
-		//        Clients.Caller.SendAsync(e.ToString());
-		//    }
-		//}
-
-		//public override async Task OnDisconnectedAsync(Exception e)
-		//{
-		//    // ermittelt den Benutzer der ID, welche die Verbindung geschlossen hat
-		//    KeyValuePair<string, string> user = chatClients.SingleOrDefault(user => user.Value == Context.ConnectionId);
-
-		//    chatClients.Remove(user.Key);
-
-		//    // Information an aktive Benutzer senden
-		//    await Clients.Others.SendAsync("handleSignOff", user.Key);
-
-		//    await base.OnDisconnectedAsync(e);
-		//}
-
+            return filepath;
+		}
 
 	}
 }

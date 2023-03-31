@@ -15,12 +15,7 @@ namespace SimpleChat.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Chat()
-        {
-            return View();
+			return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

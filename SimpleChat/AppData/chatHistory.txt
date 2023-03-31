@@ -1,0 +1,13 @@
+seeeB: test
+seeeB: Chatlog test
+seeeB: test mit Zeit
+seeeB: sadasdasd
+seeeB: test
+seeeB: test
+John: asjbdnkjasdnasd
+test: fdsd
+seeeB: leider kann man den Chatlog immer noch nicht abrufen
+seeeB: jetzt kann man den Chatlog abrufen
+test: test
+seeeB: test
+seeeB: scroll test

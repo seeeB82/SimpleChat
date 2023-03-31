@@ -1,17 +1,34 @@
-﻿
+﻿<div id="chat">
+	<div id="main">
+		<aside>
+			<ul id="chatUsers"></ul>
+		</aside>
+		<div id="mainChat">
+				<ul id="messagesList">
 
-<div class="signOn-form">
-	<div class="signOn-head-text">Simple Chat Login</div>
-	<form method="post" action="/Home/Chat">
-		<div class="signOn-zusatztext">
-			Zum chatten den gewünschten Usernamen eingeben
+				</ul>
+				<div id="message-footer">
+					<input type="text" class="messageInput" id="messageInput" required placeholder="Nachricht eingeben" />
+					<input type="button" class="sendButton" id="sendButton" value="Senden" />
+				</div>
 		</div>
-		<div class="field">
-			<input type="text" id="username" value="" placeholder="Username eingeben" />
-		</div>
-		@*TODO: Erweitertung: Avatar*@
-		<div>
-			<button type="submit" class="setUsername" id="setUsername">Chat starten</button>
-		</div>
-	</form>
+	</div>
 </div>
+
+
+
+
+@*<div id="chat">
+	<div id="main">
+		<aside>
+			<ul id="chatUsers"></ul>
+		</aside>
+		<div id="mainChat">
+			<ul id="messagesList"></ul>
+			<div id="message-footer">
+				<input type="text" class="messageInput" id="messageInput" required placeholder="Nachricht eingeben" />
+				<input type="button" class="sendButton" id="sendButton" value="Senden" />
+			</div>
+		</div>
+	</div>
+</div>*@
