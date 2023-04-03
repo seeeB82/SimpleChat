@@ -1,13 +1,17 @@
-seeeB: test
-seeeB: Chatlog test
-seeeB: test mit Zeit
-seeeB: sadasdasd
-seeeB: test
-seeeB: test
-John: asjbdnkjasdnasd
-test: fdsd
-seeeB: leider kann man den Chatlog immer noch nicht abrufen
-seeeB: jetzt kann man den Chatlog abrufen
-test: test
-seeeB: test
-seeeB: scroll test
+{"User":"Benutzer8487","Content":"test2","Zeitstempel":"2023.04.03 - 12:09"}
+{"User":"Benutzer8487","Content":"test","Zeitstempel":"2023.04.03 - 12:11"}
+{"User":"Benutzer8487","Content":"test","Zeitstempel":"2023.04.03 - 12:11"}
+{"User":"Benutzer8487","Content":"test neu","Zeitstempel":"2023.04.03 - 12:11"}
+{"User":"Benutzer9770","Content":"test neu","Zeitstempel":"03.04.2023  12:12"}
+{"User":"Benutzer3936","Content":"test","Zeitstempel":"03.04.2023 - 12:18"}
+{"User":"Benutzer3953","Content":"json","Zeitstempel":"03.04.2023 - 12:21"}
+{"User":"Benutzer4273","Content":"test111","Zeitstempel":"03.04.2023 - 12:29"}
+{"User":"Benutzer2431","Content":"test11111","Zeitstempel":"03.04.2023 - 12:30"}
+{"User":"Benutzer664","Content":"test","Zeitstempel":"03.04.2023 - 12:33"}
+{"User":"Benutzer7882","Content":"message test","Zeitstempel":"03.04.2023 - 12:36"}
+{"User":"Benutzer6889","Content":"test122343412","Zeitstempel":"03.04.2023 - 12:38"}
+{"User":"Benutzer2876","Content":"test","Zeitstempel":"03.04.2023 - 12:40"}
+{"User":"Benutzer2649","Content":"ksandkasndkasnd","Zeitstempel":"03.04.2023 - 12:49"}
+{"User":"Benutzer3465","Content":"test","Zeitstempel":"03.04.2023 - 13:21"}
+{"User":"Benutzer3233","Content":"test","Zeitstempel":"03.04.2023 - 13:41"}
+{"User":"Benutzer7983","Content":"dies ist eine etwas l\u00E4ngere Nachricht um den automatischen Zeilenumbruch zu demonstrieren","Zeitstempel":"03.04.2023 - 14:06"}

@@ -58,11 +58,21 @@ aside {
     font-family:Consolas;
 }
 
+.head {
+    color: black;
+    margin-left: 15px;
+    font-size: 10px;
+    padding-top: 5px;
+}
+
+    /*TODO: unterschiedliche Hintergrundfarben und Ausrichtung (me, other)*/
 .msg {
     background-color:cornflowerblue;
     margin: 5px;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 1px 10px 1px 10px;
+    border-radius: 15px;
+    max-width: 350px;
+    
 }
 
 #chatUsers {

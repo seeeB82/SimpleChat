@@ -10,13 +10,12 @@ function setUsername() {
     // Benutzernamen einlesen und speichern
     username = prompt('Bitte Namen eingeben:');
 
-
     // Bei leerem Benutzernamen generieren
     if (username === undefined || username === '') {
-        username = "SimpleChatUser" + Math.floor(Math.random() * (10000 - 1) + 1);
+        username = "Benutzer" + Math.floor(Math.random() * (10000 - 1) + 1);
     }
 
-    // Starten der Chat-Funktion
+    // Starten des Chats
     chatStart();
 }
 
@@ -33,7 +32,7 @@ function chatStart() {
         setUsername();
     });
 
-    // .then wartet, bis Verbindung aufgebaut wurde
+    // .then wartet, bis Verbindung zum Chat aufgebaut wurde
     chat.start().then(() => {
 
         // Benutzername an Server senden
@@ -42,11 +41,21 @@ function chatStart() {
         // Chatverlauf abrufen
         chat.invoke("RequestHistory");
 
+        // ruft Funktion zum Senden der Nachricht auf
         $('#sendButton').on("click", sendButtonClick);
     });
 
     // Nachrichten empfangen und neues Listenelement erzeugen
-    chat.on("ReceiveMessage", function (message) {
+    chat.on("ReceiveMessage", function (user, message, time) {
+
+        // fügt Nachrichten-Kopf hinzu
+        let msgHead = document.createElement("li");
+        msgHead.textContent = user + "   " + time;
+        msgHead.className = "head";
+
+        document.getElementById("messagesList").appendChild(msgHead);
+
+        // fügt Nachricht hinzu
         let li = document.createElement("li");
         li.textContent = message;
         li.className = "msg";
@@ -63,6 +72,7 @@ function chatStart() {
         // Array mit aktiven Benutzern durchlaufen
         for (let i = 0; i < chatClients.length; i++) {
 
+            // Erzeugen von List Item Elementen für jeden aktiven Benutzer (id = Benutzername)
             let li = document.createElement("li");
             li.textContent = chatClients[i];
             li.id = chatClients[i];
@@ -72,37 +82,45 @@ function chatStart() {
         }
     });
 
-    // Entfernen von nicht aktiven Benutzern
+    // ruft Methode zum Entfernen nicht aktiver Benutzer auf
     chat.on("handleSignOff", function (chatClient) {
 
-        // nicht mehr aktiven Nutzer aus der Benutzerliste entfernen
+        // nicht mehr aktive Benutzer entfernen
         document.getElementById(chatClient).remove();
         
     });
 
-    // Abrufen der Chathistorie
-    chat.on("GetHistory", function (chatHistory) {
+    // Abrufen der Chat-Historie
+    chat.on("GetHistory", function (user, message, time) {
 
-        // Array mit Nachrichten durchlaufen
-        for (let i = 0; i < chatHistory.length; i++) {
+        // fügt Nachrichten-Kopf hinzu
+        let msgHead = document.createElement("li");
+        msgHead.textContent = user + "   " + time;
+        msgHead.className = "head";
 
-            let li = document.createElement("li");
-            li.textContent = chatHistory[i];
-            li.className = "msg";
+        document.getElementById("messagesList").appendChild(msgHead);
 
-            // in die Nachrichtenliste einfügen
-            document.getElementById("messagesList").appendChild(li);
-        }
+        // fügt Nachricht hinzu
+        let li = document.createElement("li");
+        li.textContent = message;
+        li.className = "msg";
+
+        document.getElementById("messagesList").appendChild(li);
     });
-
 };
 
 function sendButtonClick() {
 
-    let message = username + ": " + $('#messageInput').val();
+    // Verhindern von Absenden leerer Nachrichten
+    if ($('#messageInput').val() != "") {
 
-    chat.invoke("SendMessage", message);
+        // Speichern der Nachricht
+        let message = $('#messageInput').val();
 
-    // Inhalt der Nachrichteneingabe löschen und Fokus auf die Textbox setzen
+        // Absenden der Nachricht zum ChatHub
+        chat.invoke("SendMessage", username, message);
+    }
+
+    // Eingabefeld leeren und Fokus auf die Textbox setzen
     $('#messageInput').val('').focus();
 }
